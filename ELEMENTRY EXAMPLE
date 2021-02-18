@@ -2,42 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
 from sklearn.datasets.samples_generator import make_blobs
-
-
-# NOW CREATING OUR SAMPLE DATA
-
-# In[6]:
-
-
+#creating 40 seperable points
 X,y=make_blobs(n_samples=40,centers=2,random_state=20)
-print(X)
-print(y)
-
-
-# In[16]:
-
-
-plt.scatter(X[:,0],X[:,1],c=y,)
-plt.show()
-
-
-# In[17]:
-
-
-plt.scatter(X[:,0],X[:,1],c=y,cmap=plt.cm.Paired)
-plt.show()
-
-
-# NOW APPLYING OUR SVM FROM SKLEARN LIBRARY
-
-# In[24]:
-
-
+#fit the model
 clf=svm.SVC(kernel='linear',C=1)
 clf.fit(X,y)
-
-
-# In[ ]:
-
+#DISPLAY THE DATA IN GRAPHICAL FORM
+plot=plt.scatter(X[:,0],X[:,1],c=y)
+#USING TO PREDICT THE UNKNOWN DATA
+newdata=[[1,2],[2,3],[4,5],[5,6],[10,11]]
+print(clf.predict(newdata))
+#NOW PLOTTING THE DECISION BOUNDRY
+ax=plt.gca()
+xlim=ax.get_xlim()
+ylim=ax.get_ylim()
+# CREATE GRID TO EVALUATE MODEL
+xx=np.linspace(xlim[0],xlim[1],30)
+yy=np.linspace(ylim[0],ylim[1],30)
+YY,XX=np.meshgrid(yy,xx)
+xy=np.vstack([XX.ravel(),YY.ravel()]).T
+z=clf.decision_function(xy).reshape(XX.shape)
+#PLOT DECISION BOUNDRY AND MARGIN
+ax.contour(XX,YY,z)
+alpha=0.5
+#plot support vectors
+ax.scatter(clf.support_vectors_[:,0],clf.support_vector_[:,1],s=100)
+plt.show()
 
 
