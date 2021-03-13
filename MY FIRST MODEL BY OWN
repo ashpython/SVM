@@ -1,3 +1,15 @@
+NAME- ASHISH KUMAR MISHRA
+CONTACT-9569464495/WATSAPP-9918478641
+EMAIL-iit204601@gmail.com
+GITHUB LINK-https://github.com/ashpython/SVM/tree/main
+LINKEDIN-https://www.linkedin.com/in/ashish-mishra-a5a5581a2/
+
+                                         (ASSIGNMENT FOR INTERSNSHIP)
+                   
+CREATING A MACHINE LEARNING MODEL USING DECSION TREE REGRESSOR TO PREDICT THE QUALITY OF RED WINE ON THE BASIS OF DIFFERENT FEATURES
+
+CALLING IMPORTANT LIBRARIES
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,11 +18,17 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 
 
+IMPORTING MY DATA
+
 redwine_data=pd.read_csv('C:/Users/baba/Desktop/winequality-red.csv')
 redwine_data.columns
 
+SELECTING MY OUTPUT VARIABLE (QUALITY OF RED WINE) DEPENDENT VARIABLES
+
 Y=redwine_data.quality
 Y
+
+SELECTING MY FEATURES WHICH AFFECTS THE QUALITY OF RED WINE FOR PREDICTION
 
 redwine_features=['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
        'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density',
@@ -18,10 +36,15 @@ redwine_features=['fixed acidity', 'volatile acidity', 'citric acid', 'residual 
 x=redwine_data[redwine_features]
 x
 
+SPLITING MY DATA INTO 80% FOR TRAINING PART AND 20% FOR TESTING PART
+
 train_x,val_x,train_Y,val_Y=train_test_split(x,Y,random_state=0,train_size=0.8)
 redwine_model=DecisionTreeRegressor()
 redwine_model.fit(train_x,train_Y)
 
+
+PRINTING MY RESULTS ON THE BASIS OF MY MODEL.
+HERE I AM PREDICTING TOP 5 OF MY X FEATURES
 
 print('The Predictions using DesicionTreeRegressor For first five x inputs are')
 print(x.head())
@@ -30,7 +53,6 @@ print(redwine_model.predict(x.head()))
 print(' Original outputs of quality are')
 print(Y.head())
 
+DEFINING MEAN ABSOLUTE ERROR WHICH TELLS US ABOUT ACCURACY OF OUR MODEL BY TAKING THE AVERAGES OF ABSOLUTE OF DIFFERENCE OF PREDICTED AND ACTUAL OUTPUT DATA. 
+
 mean_absolute_error(Y,redwine_model.predict(x))
-
-help(train_test_split)
-
